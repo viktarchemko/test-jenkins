@@ -18,7 +18,7 @@ pipeline {
         }
         stage("Second step") {
             steps {
-                sh 'ssh test@ecsb003009ed.epam.com hostname \'uptime\''
+                sh 'ssh test@ecsb003009ed.epam.com \'uptime\''
             }
         }
     }
