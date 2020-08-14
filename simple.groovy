@@ -19,6 +19,8 @@ pipeline {
                         usernameVariable: 'user')]) {
                     sh "pwd"
                     sh "hostname"
+                    sh "echo $passwd"
+                    sh "echo $user"
                 }
             }
         }
