@@ -1,24 +1,30 @@
-#!groovy
+#!/usr/bin/env groovy
 // Check ub1 properties
 properties([disableConcurrentBuilds()])
 
 pipeline {
     agent { 
-        label 'master'
+        label 'linux'
         }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }
     stages {
-        stage("First step") {
+        stage('First stage') {
             steps {
-                sh 'ssh test@ecsb003009ed.epam.com \'hostname\''
+                withCredentials([usernamePassword(
+                        credentialsId: 'jenkins-pass',
+                        passwordVariable: 'passwd',
+                        usernameVariable: 'user')]) {
+                    sh "pwd"
+                    sh "hostname"
+                }
             }
         }
-        stage("Second step") {
+        stage("Second stage") {
             steps {
-                sh 'ssh test@ecsb003009ed.epam.com \'uptime\''
+                sh 'ls'
             }
         }
     }
